@@ -17,8 +17,26 @@ public class ChocolateBagsTest3 {
             // Only small bars.
             "'small-bars-only',4,2,3,3", "'small-bars-only',3,2,3,3", "'small-bars-only',2,2,3,-1", "'small-bars-only',1,2,3,-1"
     })
-    public void testAlgorithm(String partition, int small, int big, int total, int expectedResult) {
+   public void testAlgorithm(String partition, int small, int big, int total, int expectedResult) {
+       int result = new ChocolateBags().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+   }
+    @ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    @CsvSource({
+            "'big-and-small',0,3,17,-1", "'big-and-small',1,3,17,-1", "'big-and-small',2,3,17,2", "'big-and-small',3,3,17,2",
+            "'big-and-small',0,3,12,-1", "'big-and-small',1,3,12,-1", "'big-and-small',2,3,12,2", "'big-and-small',3,3,12,2",
+    })
+    public void bigAndSmallBars(String partition, int small, int big, int total, int expectedResult) {
         int result = new ChocolateBags().calculate(small, big, total);
         Assertions.assertEquals(expectedResult, result);
     }
-}
+
+    @ParameterizedTest(name = "small={0}, big={1}, total={2}, result={3}")
+    @CsvSource({ "'small-bars-only',4,2,3,3", "'small-bars-only',3,2,3,3", "'small-bars-only',2,2,3,-1", "'small-bars-only',1,2,3,-1" })
+    public void onlySmallBars(String partition, int small, int big, int total, int expectedResult) {
+        int result = new ChocolateBags().calculate(small, big, total);
+        Assertions.assertEquals(expectedResult, result);
+    }
+
+    }
+
